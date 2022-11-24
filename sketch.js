@@ -84,7 +84,7 @@ function draw() {
                 textSize(20);
                 textStyle(BOLD); 
                 fill(0, 0, 0, 100); 
-                text(flight.from_city, fromLongitudes[i], fromLatitudes[i]);   
+                text(`${flight.from_city}, ${flight.from_airport}`, fromLongitudes[i], fromLatitudes[i]);   
             }
         }
     ); 
