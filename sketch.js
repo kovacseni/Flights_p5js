@@ -50,12 +50,12 @@ function setup() {
 }
 
 function draw() {
-    background(80);
+    background(240, 80, 90, 100);
    
     const fromPoints = fromLongitudes.forEach(
         (p, i) => {
             point(fromLongitudes[i], fromLatitudes[i]);
-            stroke(240, 50, 50, 50);
+            stroke(240, 100, 25, 100);
             strokeWeight(3); 
         }
     );
@@ -63,56 +63,38 @@ function draw() {
     const toPoints = toLongitudes.forEach(
         (p, i) => {
             point(toLongitudes[i], toLatitudes[i]);
-            stroke(240, 50, 50, 50);
+            stroke(240, 100, 25, 100);
             strokeWeight(3); 
         }
     );
 
-    /*
-    let curves = fromLongitudes.map(
-        (p, i) => 
-            curve(fromLongitudes[i] - 40, fromLatitudes[i] + 40, 
-                    fromLongitudes[i], fromLatitudes[i], toLongitudes[i], toLatitudes[i], 
-                    toLongitudes[i] - 40, toLatitudes[i] + 40)
-    );
-    */
-
-    noFill();
+  
 
     flights.forEach(
         (flight, i) => {
             if (flight.active) {
-                stroke(0, 50, 50, 50);
+                noFill();
+                stroke(0, 100, 50, 1);
                 strokeWeight(0.5); 
                 curve(fromLongitudes[i] - 40, fromLatitudes[i] + 40, 
                     fromLongitudes[i], fromLatitudes[i], toLongitudes[i], toLatitudes[i], 
-                    toLongitudes[i] - 40, toLatitudes[i] + 40)
+                    toLongitudes[i] - 40, toLatitudes[i] + 40);
+                noStroke();    
+                textFont('Arial'); 
+                textSize(20);
+                textStyle(BOLD); 
+                fill(0, 0, 0, 100); 
+                text(flight.from_city, fromLongitudes[i], fromLatitudes[i]);   
             }
         }
     ); 
-
-    /*
-    activeCurves.forEach(
-        (c, i) => {
-            stroke(0, 50, 50, 50);
-            strokeWeight(10);
-            curve(fromLongitudes[i] - 40, fromLatitudes[i] + 40, 
-                fromLongitudes[i], fromLatitudes[i], toLongitudes[i], toLatitudes[i], 
-                toLongitudes[i] - 40, toLatitudes[i] + 40)
-        }
-    )  
-    */
 }
 
 
 function mouseMoved() {
     
-    console.log(`${mouseX} ${mouseY}`);
     flights.forEach((flight) => {
-        flight.active = abs(flight.from_long - mouseX) < 5 && abs(flight.from_lat - mouseY) < 5 ? true : false;
-    });
-    flights.filter((flight) => flight.active).forEach((flight) => {
-        console.log(`V2${flight.from_long} ${flight.from_lat}}`);
+        flight.active = abs(flight.from_long - mouseX) < 1 && abs(flight.from_lat - mouseY) < 1 ? true : false;
     });
     draw();
 } 
